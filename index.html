@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>CTF Report</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
+
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript"></script>
+  <div class="container mb-5 mt-1">
+    <div class="row">
+
+      <div class="col-lg-12 pt-5 d-flex justify-content-between">
+        <h1>CTF Report</h1>
+        <button type="button" class="btn btn-primary no-print" onclick="window.print()">Print</button>
+      </div>
+      
+      <style></style>
+      
+      <hr>
+
+    </div>
+    <div class="row mb-3">
+      <p class="mb-1"><b>{{ top_info['total_users'] }}</b> total users </p>
+      <p class="mb-1"><b>{{ top_info['total_teams'] }}</b> total teams </p>
+      <p class="mb-1"><b>{{ top_info['total_solved'] }}</b> total challenges correctly solved </p>
+      <div class="col-md-6">
+        <table class="table text-center table-sm table-striped">
+          <h2>Top 5 Teams</h2>
+          <th>#</th>
+          <th>Team Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          {% for i in range(top_teams|length) %}
+          {% set team_size = top_teams[i]["members"]["username"]|length %}
+          <tr>
+            <td rowspan="{{ team_size }}">{{ i+1 }}</td>
+            <td rowspan="{{ team_size }}">{{ top_teams[i]["name"] }}</td>
+            <td>{{ top_teams[i]["members"]["username"][0] }}</td>
+            <td>{{ top_teams[i]["members"]["email"][0] }}</td>
+          </tr>
+          {% for n in range(1, team_size) %}
+          <tr>
+            <td>{{ top_teams[i]["members"]["username"][n] }}</td>
+            <td>{{ top_teams[i]["members"]["email"][n] }}</td>
+          </tr>
+          {% endfor %}
+          {% endfor %}
+        </table>
+
+      </div>
+      <div class="col-md-6">
+        <table class="table text-center table-sm table-striped">
+          <h2>Top 5 Individuals</h2>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          {% for i in range(0, 5, 1) %}
+          <tr>
+            <td>{{ (i+1) }}</td>
+            <td>{{ top_indiv[i*2] }}</td>
+            <td>{{ top_indiv[i*2+1] }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        <table class="table text-center table-sm table-striped">
+          <h2>10 Random Users</h2>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          {% for i in range(0, 10, 1) %}
+          <tr>
+            <td>{{ (i+1) }}</td>
+            <td>{{ random_users[i*2] }}</td>
+            <td>{{ random_users[i*2+1] }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+    </div>
+  </div>
