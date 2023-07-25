@@ -1,2 +1,2 @@
 # reportgenerator
-MetaCTF Report Generator
+Report Generator
